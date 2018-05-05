@@ -3,7 +3,6 @@ package com.ucbcba.RegistroMedico.controllers;
 
 
 import com.ucbcba.RegistroMedico.entities.Usuario;
-import com.ucbcba.RegistroMedico.services.SeguridadService;
 import com.ucbcba.RegistroMedico.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,10 +17,9 @@ public class UsuarioController {
     @Autowired
     private UsuarioService userService;
 
-    @Autowired
-    private SeguridadService securityService;
-
-
+    public void setUserService(UsuarioService userService){
+        this.userService = userService;
+    }
 
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String registrationInit(Model model) {
@@ -37,7 +35,6 @@ public class UsuarioController {
             return "registration";
         }
 
-        securityService.autologin(user.getUsername(), user.getPasswordConfirm());
         return "redirect:/welcome";
     }
 

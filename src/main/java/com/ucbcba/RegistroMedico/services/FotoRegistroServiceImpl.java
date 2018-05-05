@@ -4,7 +4,9 @@ import com.ucbcba.RegistroMedico.entities.FotoRegistro;
 import com.ucbcba.RegistroMedico.repository.FotoRegistroRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
 
+@Service
 public class FotoRegistroServiceImpl implements FotoRegistroService {
 
     private FotoRegistroRepository fotoRegistroRepository;

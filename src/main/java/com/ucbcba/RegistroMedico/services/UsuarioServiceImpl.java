@@ -4,7 +4,9 @@ import com.ucbcba.RegistroMedico.entities.Usuario;
 import com.ucbcba.RegistroMedico.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
 
+@Service
 public class UsuarioServiceImpl implements UsuarioService {
 
     private UsuarioRepository usuarioRepository;
