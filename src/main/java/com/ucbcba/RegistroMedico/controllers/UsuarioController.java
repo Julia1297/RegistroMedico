@@ -21,7 +21,7 @@ public class UsuarioController {
     @Autowired
     private SeguridadService securityService;
 
-    
+
 
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String registrationInit(Model model) {
