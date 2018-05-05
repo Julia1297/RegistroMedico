@@ -6,6 +6,12 @@ import java.util.Date;
 
 @Entity
 public class RegistroMedico {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
+
+    @NotNull
     private Date fecha;
 
 
