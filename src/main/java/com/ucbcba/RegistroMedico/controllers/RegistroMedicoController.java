@@ -6,8 +6,10 @@ import com.ucbcba.RegistroMedico.services.RegistroMedicoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
 
 @Controller
 public class RegistroMedicoController {
@@ -24,4 +26,17 @@ public class RegistroMedicoController {
         model.addAttribute(registroMedicoList);
         return "home";
     }
+
+    @RequestMapping(value = "/nuevoRegistro", method = RequestMethod.GET)
+    String newRegister(Model model){
+        model.addAttribute("registro", new RegistroMedico());
+        return "newRegister";
+    }
+
+    @RequestMapping(value = "/registro", method = RequestMethod.POST)
+    String save(  RegistroMedico registroMedico){
+        registroMedicoService.saveRegistroMedico(registroMedico);
+        return "redirect:/";
+    }
+
 }
