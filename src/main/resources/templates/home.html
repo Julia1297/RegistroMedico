@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Salute</title>
@@ -19,9 +19,9 @@
         <tr  th:each="registroMedico : ${registroMedicoList}">
             <td th:text="${registroMedico.titulo}"></td>
             <td th:text="${registroMedico.descripcion}"></td>
-            <td th:text="${registroMedico.fecha}"></td>
+            <td th:text="${registroMedico.fecha.toString()}"></td>
             <td th:text="${registroMedico.tipo}"></td>
-            <td><a href="${'/registroMedico/' + registroMedico.id}">Ver</a></td>
+            <td><a th:href="${'/mostrarRegistro/'+registroMedico.id}">Ver</a></td>
         </tr>
     </table>
 

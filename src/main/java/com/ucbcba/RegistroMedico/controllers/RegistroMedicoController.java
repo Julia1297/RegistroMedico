@@ -40,7 +40,7 @@ public class RegistroMedicoController {
         return "redirect:/";
     }
 
-    @RequestMapping("/registroMedico/{id}")
+    @RequestMapping("/mostrarRegistro/{id}")
     String mostrarRegistro(@PathVariable Integer id, Model model){
         RegistroMedico registroMedico = registroMedicoService.getRegistroMedico(id);
         model.addAttribute("registroMedico",registroMedico);
