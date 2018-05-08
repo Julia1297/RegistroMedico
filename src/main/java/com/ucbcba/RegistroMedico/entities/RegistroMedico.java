@@ -4,7 +4,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
+import java.sql.Date;
 
 @Entity
 public class RegistroMedico {
@@ -15,8 +15,7 @@ public class RegistroMedico {
     @NotNull
     private String titulo;
 
-    @Temporal(TemporalType.DATE)
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @NotNull
     private Date fecha;
 
     @NotNull
