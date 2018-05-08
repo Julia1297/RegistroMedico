@@ -1,10 +1,30 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
-    <title>Mi historial</title>
+    <title>Salute</title>
 </head>
 <body>
+    <h1>Mi historial</h1>
+    <a href="/nuevoRegistro">Nuevo registro</a>
+
+    <table border="2">
+        <tr >
+            <td>Titulo</td>
+            <td>Descripcion</td>
+            <td>Fecha</td>
+            <td>Tipo</td>
+            <td>Ver</td>
+        </tr>
+        <tr  th:each="registroMedico : ${registroMedicoList}">
+            <td th:text="${registroMedico.titulo}"></td>
+            <td th:text="${registroMedico.descripcion}"></td>
+            <td th:text="${registroMedico.fecha}"></td>
+            <td th:text="${registroMedico.tipo}"></td>
+            <td><a href="${'/registroMedico/' + registroMedico.id}">Ver</a></td>
+        </tr>
+    </table>
+
 
 </body>
 </html>
