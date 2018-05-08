@@ -5,15 +5,15 @@ import javax.validation.constraints.NotNull;
 
 
 @Entity
-public class Usuario {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+public class User {
     private Long id;
     private String username;
     private String password;
+    private String role;
     private String passwordConfirm;
 
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getId() {
         return id;
     }
@@ -37,7 +37,7 @@ public class Usuario {
     public void setPassword(String password) {
         this.password = password;
     }
-/*
+
     @Transient
     public String getPasswordConfirm() {
         return passwordConfirm;
@@ -45,5 +45,11 @@ public class Usuario {
 
     public void setPasswordConfirm(String passwordConfirm) {
         this.passwordConfirm = passwordConfirm;
-    }*/
+    }
+
+    public String getRole() { return role; }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
 }
