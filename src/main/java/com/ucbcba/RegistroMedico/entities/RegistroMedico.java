@@ -4,6 +4,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.sql.Date;
 
 @Entity
@@ -13,12 +14,14 @@ public class RegistroMedico {
     private Integer id;
 
     @NotNull
+    @Size(min=1)
     private String titulo;
 
     @NotNull
     private Date fecha;
 
     @NotNull
+    @Size(min=1)
     private String descripcion;
 
     @NotNull
@@ -30,6 +33,7 @@ public class RegistroMedico {
     }
 
     public void setDescripcion(String descripcion) {
+
         this.descripcion = descripcion;
     }
 
@@ -64,4 +68,5 @@ public class RegistroMedico {
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }
+
 }
