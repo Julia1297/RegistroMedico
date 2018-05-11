@@ -4,6 +4,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.sql.Date;
 
 @Entity
@@ -30,6 +31,7 @@ public class RegistroMedico {
     }
 
     public void setDescripcion(String descripcion) {
+
         this.descripcion = descripcion;
     }
 
@@ -64,4 +66,5 @@ public class RegistroMedico {
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }
+
 }

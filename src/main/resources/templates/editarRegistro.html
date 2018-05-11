@@ -6,9 +6,9 @@
 </head>
 <body>
 
-
+<h1>Editar Post</h1>
 <form th:object="${registro}" action="/registro" method="POST">
-
+    <input type="hidden" name="id" th:value="${registro.id}">
     <div>
         <b> Titulo:</b>
         <input type="text" class="form-control" th:field="*{titulo}" />
@@ -36,7 +36,12 @@
     <input type="submit" value="Guardar"></input>
 
 </form>
-
-
+    </div>
+    <div>
+        <b> Fecha:</b>
+        <input  type="date" name="fecha" ></input>
+    </div>
+    <input type="submit" value="Guardar"></input>
+</form>
 </body>
 </html>
