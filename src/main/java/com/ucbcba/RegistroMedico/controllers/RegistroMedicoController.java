@@ -31,7 +31,7 @@ public class RegistroMedicoController {
     @RequestMapping(value = "/nuevoRegistro", method = RequestMethod.GET)
     String newRegister(Model model){
         model.addAttribute("registro", new RegistroMedico());
-        return "newRegister";
+        return "nuevoRegistro";
     }
 
     @RequestMapping(value = "/registro", method = RequestMethod.POST)
@@ -45,6 +45,18 @@ public class RegistroMedicoController {
         RegistroMedico registroMedico = registroMedicoService.getRegistroMedico(id);
         model.addAttribute("registroMedico",registroMedico);
         return "mostrarRegistro";
+    }
+    @RequestMapping("/editarRegistro/{id}")
+    String editarRegistro(@PathVariable Integer id, Model model){
+        RegistroMedico registroMedico = registroMedicoService.getRegistroMedico(id);
+        model.addAttribute("registroMedico",registroMedico);
+        return "editarRegistro";
+    }
+
+    @RequestMapping("/eliminarRegistro/{id}")
+    String eliminarRegistro(@PathVariable Integer id){
+        registroMedicoService.deleteRegistroMedico(id);
+        return "redirect:/";
     }
 
 }

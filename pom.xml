@@ -59,13 +59,7 @@
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-entitymanager</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-security</artifactId>
-		</dependency>
-
 	</dependencies>
-
 	<build>
 		<plugins>
 			<plugin>
@@ -74,6 +68,5 @@
 			</plugin>
 		</plugins>
 	</build>
-
 
 </project>

@@ -13,8 +13,7 @@ public class RegistroMedicoServiceImpl implements RegistroMedicoService {
 
     @Autowired
     @Qualifier(value = "registroMedicoRepository")
-    public void setRegistroMedicoRepository(RegistroMedicoRepository registroMedicoRepository) {
-        this.registroMedicoRepository = registroMedicoRepository; }
+    public void setRegistroMedicoRepository(RegistroMedicoRepository registroMedicoRepository) { this.registroMedicoRepository = registroMedicoRepository; }
 
     @Override
     public Iterable<RegistroMedico> listAllRegistroMedico() {
