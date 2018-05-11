@@ -60,6 +60,7 @@
 			<artifactId>hibernate-entitymanager</artifactId>
 		</dependency>
 		<dependency>
+<<<<<<< HEAD
 	
 			<groupId>org.postgresql</groupId>
 				<artifactId>postgresql</artifactId>
@@ -68,6 +69,11 @@
 
 		</dependency>
 
+=======
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+>>>>>>> 2cdc11a8fa7fae5f1bb9bc87e31210d269ee88ac
 
 	</dependencies>
 
