@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Nuevo Medicamento</title>
+</head>
+<body>
+
+
+<form th:object="${medicamento}" action="/registro" method="POST" enctype="multipart/form-data">
+    <input type="hidden"  name="tipo" th:value="medicamento"/>
+    <div>
+        <b> Titulo:</b>
+        <input type="text" class="form-control" th:field="*{titulo}" />
+
+    </div>
+    <div>
+        <b> Descripcion:</b>
+        <br>
+        <textarea name="descripcion" id="descripcion" cols="30" rows="10"></textarea>
+
+    </div>
+    <div>
+        <b> Fecha:</b>
+        <input  type="date" name="fecha" ></input>
+    </div>
+
+
+    <input type="submit" value="Guardar"></input>
+
+</form>
+
+
+</body>
+</html>

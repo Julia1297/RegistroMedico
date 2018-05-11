@@ -7,7 +7,7 @@
 <body>
 
 
-<form th:object="${registro}" action="/registro" method="POST" enctype="multipart/form-data">
+<form th:object="${registro}" action="/registro" method="POST" >
 
     <div>
         <b> Titulo:</b>
@@ -17,7 +17,6 @@
         <b> Descripcion:</b>
         <br>
         <textarea name="descripcion" id="descripcion" cols="30" rows="10"></textarea>
-
     </div>
     <div>
     <b> Fecha:</b>
@@ -36,7 +35,5 @@
     <input type="submit" value="Guardar"></input>
 
 </form>
-
-
 </body>
 </html>

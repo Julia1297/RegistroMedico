@@ -14,14 +14,12 @@ public class RegistroMedico {
     private Integer id;
 
     @NotNull
-    @Size(min=1)
     private String titulo;
 
     @NotNull
     private Date fecha;
 
     @NotNull
-    @Size(min=1)
     private String descripcion;
 
     @NotNull
