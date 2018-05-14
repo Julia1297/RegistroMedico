@@ -1,18 +1,13 @@
 package com.ucbcba.RegistroMedico.controllers;
 
 
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import com.ucbcba.RegistroMedico.entities.FotoRegistro;
 import com.ucbcba.RegistroMedico.entities.Observacion;
 import com.ucbcba.RegistroMedico.entities.RegistroMedico;
 import com.ucbcba.RegistroMedico.services.FotoRegistroService;
 import com.ucbcba.RegistroMedico.services.ObservacionService;
 import com.ucbcba.RegistroMedico.services.RegistroMedicoService;
-import com.ucbcba.RegistroMedico.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
@@ -26,15 +21,11 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 
 @Controller
 public class RegistroMedicoController {
-    private UserService userService;
     private RegistroMedicoService registroMedicoService;
     private FotoRegistroService fotoRegistroService;
     private ObservacionService observacionService;
@@ -55,27 +46,16 @@ public class RegistroMedicoController {
         this.registroMedicoService = registroMedicoService;
     }
 
-    @Autowired
-    public void setUserService(UserService userService){
-        this.userService = userService;
-    }
-
     @RequestMapping(value = "/", method = RequestMethod.GET)
     String home(Model model){
         Iterable<RegistroMedico> registroMedicoList = registroMedicoService.listAllRegistroMedico();
-        model.addAttribute(registroMedicoList);
+        model.addAttribute("registros",registroMedicoList);
         return "redirect:/miHistorial";
     }
     @RequestMapping(value = "/miHistorial", method = RequestMethod.GET)
     String historial(Model model){
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        model.addAttribute("username", ((User)auth.getPrincipal()).getUsername());
-
-        String a = ((User)auth.getPrincipal()).getUsername();
-        com.ucbcba.RegistroMedico.entities.User h = userService.findByUsername(a);
-
-        model.addAttribute("h",h);
-
+        Iterable<RegistroMedico> registroMedicoList = registroMedicoService.listAllRegistroMedico();
+        model.addAttribute("registros",registroMedicoList);
         return "miHistorial";
     }
     @RequestMapping(value = "/miHistorial/nuevoMedicamento", method = RequestMethod.GET)
@@ -104,10 +84,6 @@ public class RegistroMedicoController {
         if(bindingResult.hasErrors()){
             return "nuevaConsulta";
         }
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String a = ((User)auth.getPrincipal()).getUsername();
-        com.ucbcba.RegistroMedico.entities.User h = userService.findByUsername(a);
-        registroMedico.setUser(h);
         registroMedicoService.saveRegistroMedico(registroMedico);
         return "redirect:/miHistorial";
     }
@@ -116,10 +92,6 @@ public class RegistroMedicoController {
         if(bindingResult.hasErrors()){
             return "nuevoTratamiento";
         }
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String a = ((User)auth.getPrincipal()).getUsername();
-        com.ucbcba.RegistroMedico.entities.User h = userService.findByUsername(a);
-        registroMedico.setUser(h);
         registroMedicoService.saveRegistroMedico(registroMedico);
         return "redirect:/miHistorial";
     }
@@ -128,10 +100,6 @@ public class RegistroMedicoController {
         if(bindingResult.hasErrors()){
             return "nuevoAnalisis";
         }
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String a = ((User)auth.getPrincipal()).getUsername();
-        com.ucbcba.RegistroMedico.entities.User h = userService.findByUsername(a);
-        registroMedico.setUser(h);
         registroMedicoService.saveRegistroMedico(registroMedico);
         return "redirect:/miHistorial";
     }
@@ -140,10 +108,6 @@ public class RegistroMedicoController {
         if(bindingResult.hasErrors()){
             return "nuevoMedicamento";
         }
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String a = ((User)auth.getPrincipal()).getUsername();
-        com.ucbcba.RegistroMedico.entities.User h = userService.findByUsername(a);
-        registroMedico.setUser(h);
         registroMedicoService.saveRegistroMedico(registroMedico);
         return "redirect:/miHistorial";
     }
@@ -153,10 +117,6 @@ public class RegistroMedicoController {
         if(bindingResult.hasErrors()){
             return "editarRegistro" + registroMedico.getId();
         }
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String a = ((User)auth.getPrincipal()).getUsername();
-        com.ucbcba.RegistroMedico.entities.User h = userService.findByUsername(a);
-        registroMedico.setUser(h);
         registroMedicoService.saveRegistroMedico(registroMedico);
         return "redirect:/miHistorial";
     }
@@ -165,38 +125,19 @@ public class RegistroMedicoController {
     @GetMapping(value = "/miHistorial/mostrarRegistro/{id}")
     String mostrarRegistro(@PathVariable(value = "id") Integer id, Model model, RedirectAttributes flash){
         RegistroMedico registroMedico = registroMedicoService.getRegistroMedico(id);
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String a = ((User)auth.getPrincipal()).getUsername();
-        com.ucbcba.RegistroMedico.entities.User h = userService.findByUsername(a);
-
-        for(RegistroMedico registroMedicol : h.getRegistroMedicoList()){
-            if(registroMedicol.getId() == registroMedico.getId()){
-                model.addAttribute("registroMedico",registroMedico);
-                model.addAttribute("observacion", new Observacion());
-                model.addAttribute("fotoRegistro", new FotoRegistro());
-                reg = registroMedico;
-                return "mostrarRegistro";
-            }
-        }
-
-        return "redirect:/miHistorial";
+        model.addAttribute("registroMedico",registroMedico);
+        model.addAttribute("observacion", new Observacion());
+        model.addAttribute("fotoRegistro", new FotoRegistro());
+        reg = registroMedico;
+        return "mostrarRegistro";
     }
 
     @RequestMapping("/miHistorial/editarRegistro/{id}")
     String editarRegistro(@PathVariable  Integer id, Model model){
         RegistroMedico registroMedico = registroMedicoService.getRegistroMedico(id);
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String a = ((User)auth.getPrincipal()).getUsername();
-        com.ucbcba.RegistroMedico.entities.User h = userService.findByUsername(a);
-
-        for(RegistroMedico registroMedicol : h.getRegistroMedicoList()){
-            if(registroMedicol.getId() == registroMedico.getId()){
-                reg = registroMedico;
-                model.addAttribute("registro", registroMedico);
-                return "editarRegistro";
-            }
-        }
-        return "redirect:/miHistorial";
+        model.addAttribute("registro", registroMedico);
+        reg = registroMedico;
+        return "editarRegistro";
     }
 
     @RequestMapping("/miHistorial/eliminarRegistro/{id}")

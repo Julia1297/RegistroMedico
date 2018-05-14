@@ -70,12 +70,11 @@ used to vertically center elements, may need modification if you're not using de
 </head>
 
 <body>
-<a type="button" class="btn btn-sm btn-primary btn-create" th:href="${'/logout'}">Cerrar sesion</a>
 
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <h4 style="text-align: center;" th:text="${h.nombre} + ' ' + ${h.apellido}"></h4>
+            <h4 style="text-align: center;"> Juan Jose Siquier Gonzalez</h4>
         </div>
     </div>
 </div>
@@ -111,7 +110,7 @@ used to vertically center elements, may need modification if you're not using de
                         </thead>
 
                         <tbody>
-                        <tr th:each="registroMedico : ${h.registroMedicoList}">
+                        <tr th:each="registroMedico : ${registros}">
                             <td><input type="checkbox" class="checkthis" /></td>
                             <td th:text="${registroMedico.id}"></td>
                             <td><a th:href="${'/miHistorial/mostrarRegistro/'+registroMedico.id}" th:text="${registroMedico.titulo}"></a></td>
@@ -128,6 +127,6 @@ used to vertically center elements, may need modification if you're not using de
             </div>
         </div>
     </div>
-
+</div>
 </body>
 </html>

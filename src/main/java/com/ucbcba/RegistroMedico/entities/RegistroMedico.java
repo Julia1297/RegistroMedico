@@ -29,10 +29,6 @@ public class RegistroMedico {
     @NotNull
     private String tipo;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
-
     @OneToMany(mappedBy = "registroMedico",cascade = CascadeType.ALL)
     private List<FotoRegistro> fotoRegistroList;
 
@@ -93,14 +89,6 @@ public class RegistroMedico {
 
     public void setTipo(String tipo) {
         this.tipo = tipo;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 
 }
