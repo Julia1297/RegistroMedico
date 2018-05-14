@@ -5,9 +5,60 @@
     <title>Registro</title>
 </head>
 <body>
-    <p th:text="${registroMedico.titulo}"></p>
-    <p th:text="${registroMedico.descripcion}"></p>
-    <p th:text="${registroMedico.fecha}"></p>
-    <p th:text="${registroMedico.tipo}"></p>
+<p th:text="${registroMedico.titulo}"></p>
+<p th:text="${registroMedico.descripcion}"></p>
+<p th:text="${registroMedico.fecha}"></p>
+<p th:text="${registroMedico.tipo}"></p>
+
+<form autocomplete="off" action="#" th:action="@{/miHistorial/subirFoto}"
+      th:object="${fotoRegistro}" method="post" role="form" enctype="multipart/form-data">
+
+    <div class="form-group row">
+        <input type="file" name="file" class="form-control"/>
+    </div>
+
+    <div class="form-group">
+        <div class="col-sm-9">
+            <button type="submit" class="btn btn-primary btn-block">Subir nueva foto</button>
+        </div>
+    </div>
+
+</form>
+
+<div class="container py-4">
+    <div class="card bg-light/">
+        <div class="card-body"  th:each="fotoR : ${registroMedico.fotoRegistroList}">
+            <img th:if="${#strings.length(fotoR.foto)>0}" class="{img-thumbnail rounded float-left"
+            style="max-width: 50%;" th:src="@{'/uploads/' + ${fotoR.foto}}"
+            th:alt="${fotoR.foto}">
+        </div>
+    </div>
+</div>
+
+<form autocomplete="off" action="#" th:action="@{/miHistorial/agregarObservacion}"
+      th:object="${observacion}" method="post" role="form">
+
+    <div class="form-group">
+        <div class="col-sm-9">
+            <input type="text" th:field="*{descripcion}" placeholder="Descripcion"
+                   class="form-control" /> <label
+                th:if="${#fields.hasErrors('descripcion')}" th:errors="*{descripcion}"
+                class="validation-message"></label>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-sm-9">
+            <button type="submit" class="btn btn-primary btn-block">Agregar comentario</button>
+        </div>
+    </div>
+
+</form>
+
+<div th:each="observ : ${registroMedico.observacionList}">
+    <p th:text="${observ.descripcion}"></p>
+    <p th:text="${observ.fecha}"></p>
+</div>
+
 </body>
 </html>

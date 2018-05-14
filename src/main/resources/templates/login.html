@@ -11,11 +11,9 @@
 
 
     <!-- Website CSS style -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Website Font style -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
-    <link rel="stylesheet" href="style.css">
     <!-- Google Fonts -->
     <link href='https://fonts.googleapis.com/css?family=Passion+One' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
@@ -29,7 +27,7 @@
             body, html{
                 height: 100%;
                 background-repeat: no-repeat;
-                background:url(https://media.istockphoto.com/vectors/medical-icons-vector-id470713789);
+                background:url(https://thumbs.dreamstime.com/b/patient-medical-history-form-pen-isolated-white-background-36635986.jpg);
                 font-family: 'Oxygen', sans-serif;
                     background-size: cover;
             }
@@ -132,58 +130,46 @@
                 text-align: center;
             }
         </style>
-    <title>Register</title>
+    <title>Mi salud</title>
 </head>
 <body>
-<div class="form-group ">
-    <button type="submit" target="_blank" class="btn btn-primary btn-lg btn-block login-button"
-            onclick="window.location.href='/miHistorial'" style="background-color:darkturquoise">Volver mi historial</button>
-</div>
 <div class="container">
     <div class="row main">
         <div class="main-login main-center">
-            <h4 style="text-align: center;">Modificar registro</h4>
-            <form action="/miHistorial/registroMedico" method="post" >
-
-                <input type="hidden" name="id" th:value="${registro.id}">
+            <h2 style="text-align: center;">Iniciar sesion</h2>
+            <form autocomplete="off" th:action="@{/login}"
+                  th:object="${user}" class="" method="POST" >
 
                 <div class="form-group">
-                    <label class="cols-sm-2 control-label">Titulo</label>
+                    <label class="cols-sm-2 control-label">Email o Username</label>
                     <div class="cols-sm-10">
                         <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-                            <input type="text" class="form-control" name="titulo" th:value="${registro.titulo}"/>
+                            <span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
+                            <input type="text" id="username" name="username" class="form-control" placeholder="Ingresa tu email o un nombre de usuario"/>
                         </div>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label class="cols-sm-2 control-label">Descripcion</label>
+                    <label class="cols-sm-2 control-label">Password</label>
                     <div class="cols-sm-10">
                         <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-                            <input type="text" class="form-control" name="descripcion" th:value="${registro.descripcion}"/>
+                            <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                            <input type="password" id="password" name="password" class="form-control" placeholder="Ingresa tu Password"/>
                         </div>
                     </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="cols-sm-2 control-label">Fecha</label>
-                    <div class="cols-sm-10">
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-                            <input type="date" class="form-control" name="fecha" th:value="${registro.fecha}"/>
-                        </div>
-                    </div>
-                </div>
-
-                <div>
-                    <input type="hidden"  name="tipo" th:value="${registro.tipo}"/>
                 </div>
 
                 <div class="form-group ">
-                    <button type="submit" target="_blank" class="btn btn-primary btn-lg btn-block login-button">Realizar cambios</button>
+                    <button type="submit" target="_blank" class="btn btn-primary btn-lg btn-block login-button">Iniciar sesion</button>
                 </div>
+
+            </form>
+
+            <form th:action="@{/registration}" method="get">
+
+                <button type="submit" target="_blank" class="btn btn-primary btn-lg btn-block login-button">¿No tienes cuenta?</button>
+
             </form>
         </div>
     </div>
@@ -191,6 +177,6 @@
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="js/bootstrap.min.js"></script>
+
 </body>
 </html>

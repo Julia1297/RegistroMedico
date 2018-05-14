@@ -27,9 +27,9 @@
             -webkit-overflow-scrolling: touch;
             }
             body, html{
-                height: 100%;
+                height: 120%;
                 background-repeat: no-repeat;
-                background:url(https://media.istockphoto.com/vectors/medical-icons-vector-id470713789);
+                background:url(https://media.istockphoto.com/vectors/nurse-icon-medical-set-on-white-background-health-care-vector-vector-id859332136);
                 font-family: 'Oxygen', sans-serif;
                     background-size: cover;
             }
@@ -137,53 +137,107 @@
 <body>
 <div class="form-group ">
     <button type="submit" target="_blank" class="btn btn-primary btn-lg btn-block login-button"
-            onclick="window.location.href='/miHistorial'" style="background-color:darkturquoise">Volver mi historial</button>
+            onclick="window.location.href='/'" style="background-color:darkturquoise">Volver a la pagina de inicio</button>
 </div>
 <div class="container">
     <div class="row main">
         <div class="main-login main-center">
-            <h4 style="text-align: center;">Modificar registro</h4>
-            <form action="/miHistorial/registroMedico" method="post" >
-
-                <input type="hidden" name="id" th:value="${registro.id}">
+            <h4 style="text-align: center;">Registra tus datos personales</h4>
+            <form autocomplete="off" action="#" th:action="@{/registration}"
+                  th:object="${user}" class="" method="post" >
 
                 <div class="form-group">
-                    <label class="cols-sm-2 control-label">Titulo</label>
+                    <label class="cols-sm-2 control-label">Email o Username</label>
                     <div class="cols-sm-10">
                         <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-                            <input type="text" class="form-control" name="titulo" th:value="${registro.titulo}"/>
+                            <span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
+                            <input type="text" class="form-control" th:field="*{username}" placeholder="Ingresa tu email o un nombre de usuario"/>
                         </div>
+                        <label style="color:red;" th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="validation-message"></label>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label class="cols-sm-2 control-label">Descripcion</label>
+                    <label class="cols-sm-2 control-label">Nombre</label>
                     <div class="cols-sm-10">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-                            <input type="text" class="form-control" name="descripcion" th:value="${registro.descripcion}"/>
+                            <input type="text" class="form-control" th:field="*{nombre}" placeholder="Ingresa tu nombre"/>
                         </div>
+                        <label style="color:red;" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}" class="validation-message"></label>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label class="cols-sm-2 control-label">Fecha</label>
+                    <label class="cols-sm-2 control-label">Apellido</label>
                     <div class="cols-sm-10">
                         <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-                            <input type="date" class="form-control" name="fecha" th:value="${registro.fecha}"/>
+                            <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
+                            <input type="text" class="form-control" th:field="*{apellido}"  placeholder="Ingresa tu apellido"/>
                         </div>
+                        <label style="color:red;" th:if="${#fields.hasErrors('apellido')}" th:errors="*{apellido}" class="validation-message"></label>
                     </div>
                 </div>
 
-                <div>
-                    <input type="hidden"  name="tipo" th:value="${registro.tipo}"/>
+                <div class="form-group">
+                    <label class="cols-sm-2 control-label">Direccion</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
+                            <input type="text" class="form-control" th:field="*{direccion}" placeholder="Ingresa su direccion"/>
+                        </div>
+                        <label style="color:red;" th:if="${#fields.hasErrors('direccion')}" th:errors="*{direccion}" class="validation-message"></label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="cols-sm-2 control-label">Telefono</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
+                            <input type="text" class="form-control" th:field="*{telefono}" placeholder="Ingresa tu telefono fijo"/>
+                        </div>
+                        <label style="color:red;" th:if="${#fields.hasErrors('telefono')}" th:errors="*{telefono}" class="validation-message"></label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="cols-sm-2 control-label">Celular</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
+                            <input type="text" class="form-control" th:field="*{celular}" placeholder="Ingresa tu numero de celular"/>
+                        </div>
+                        <label style="color:red;" th:if="${#fields.hasErrors('celular')}" th:errors="*{celular}" class="validation-message"></label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="cols-sm-2 control-label">Password</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                            <input type="password" class="form-control" th:field="*{password}" placeholder="Ingresa tu Password"/>
+                        </div>
+                        <label style="color:red;" th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="validation-message"></label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="cols-sm-2 control-label">Confirmar Password</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                            <input type="password" class="form-control" th:field="*{passwordConfirm}" placeholder="Confirma tu Password"/>
+                        </div>
+                        <label style="color:red;" th:if="${#fields.hasErrors('passwordConfirm')}" th:errors="*{passwordConfirm}" class="validation-message"></label>
+                    </div>
                 </div>
 
                 <div class="form-group ">
-                    <button type="submit" target="_blank" class="btn btn-primary btn-lg btn-block login-button">Realizar cambios</button>
+                    <button type="submit" target="_blank" class="btn btn-primary btn-lg btn-block login-button">Registrarse</button>
                 </div>
+
             </form>
         </div>
     </div>
