@@ -1,6 +1,7 @@
 package com.ucbcba.RegistroMedico.controllers;
 
 
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import com.ucbcba.RegistroMedico.entities.FotoRegistro;
 import com.ucbcba.RegistroMedico.entities.Observacion;
 import com.ucbcba.RegistroMedico.entities.RegistroMedico;
@@ -164,24 +165,38 @@ public class RegistroMedicoController {
     @GetMapping(value = "/miHistorial/mostrarRegistro/{id}")
     String mostrarRegistro(@PathVariable(value = "id") Integer id, Model model, RedirectAttributes flash){
         RegistroMedico registroMedico = registroMedicoService.getRegistroMedico(id);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String a = ((User)auth.getPrincipal()).getUsername();
+        com.ucbcba.RegistroMedico.entities.User h = userService.findByUsername(a);
 
-        if(registroMedico == null){
-            flash.addFlashAttribute("error","El registro medico no existe en la base de datos");
-            return "redirect:/miHistorial";
+        for(RegistroMedico registroMedicol : h.getRegistroMedicoList()){
+            if(registroMedicol.getId() == registroMedico.getId()){
+                model.addAttribute("registroMedico",registroMedico);
+                model.addAttribute("observacion", new Observacion());
+                model.addAttribute("fotoRegistro", new FotoRegistro());
+                reg = registroMedico;
+                return "mostrarRegistro";
+            }
         }
-        reg = registroMedico;
 
-        model.addAttribute("registroMedico",registroMedico);
-        model.addAttribute("observacion", new Observacion());
-        model.addAttribute("fotoRegistro", new FotoRegistro());
-
-        return "mostrarRegistro";
+        return "redirect:/miHistorial";
     }
 
     @RequestMapping("/miHistorial/editarRegistro/{id}")
     String editarRegistro(@PathVariable  Integer id, Model model){
-        model.addAttribute("registro", registroMedicoService.getRegistroMedico(id));
-        return "editarRegistro";
+        RegistroMedico registroMedico = registroMedicoService.getRegistroMedico(id);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String a = ((User)auth.getPrincipal()).getUsername();
+        com.ucbcba.RegistroMedico.entities.User h = userService.findByUsername(a);
+
+        for(RegistroMedico registroMedicol : h.getRegistroMedicoList()){
+            if(registroMedicol.getId() == registroMedico.getId()){
+                reg = registroMedico;
+                model.addAttribute("registro", registroMedico);
+                return "editarRegistro";
+            }
+        }
+        return "redirect:/miHistorial";
     }
 
     @RequestMapping("/miHistorial/eliminarRegistro/{id}")
@@ -193,6 +208,7 @@ public class RegistroMedicoController {
     @RequestMapping(value = "/miHistorial/subirFoto", method = RequestMethod.POST)
     String save(@Valid FotoRegistro fotoRegistro, @RequestParam("file") MultipartFile foto,
                 BindingResult bindingResult, RedirectAttributes flash){
+        fotoRegistro.setRegistroMedico(reg);
         if(!foto.isEmpty()){
 
             String uniqueFilename = UUID.randomUUID().toString() + "_" + foto.getOriginalFilename();
@@ -206,25 +222,24 @@ public class RegistroMedicoController {
                 
                 flash.addFlashAttribute("info", "Has subido correctamente '" + uniqueFilename +"'");
                 fotoRegistro.setFoto(uniqueFilename);
-                fotoRegistro.setRegistroMedico(reg);
                 fotoRegistroService.saveFotoRegistro(fotoRegistro);
             }catch (IOException e){
                 e.printStackTrace();
             }
         }
-        return "redirect:/miHistorial";
+        return "redirect:/miHistorial/mostrarRegistro/" + fotoRegistro.getRegistroMedico().getId();
     }
 
     @RequestMapping(value = "/miHistorial/agregarObservacion", method = RequestMethod.POST)
     String save(@Valid Observacion observacion, BindingResult bindingResult, Model model){
+        observacion.setRegistroMedico(reg);
         if(!observacion.getDescripcion().isEmpty()){
             java.util.Date d = new java.util.Date();
             java.sql.Date d2 = new java.sql.Date(d.getTime());
             observacion.setFecha(d2);
-            observacion.setRegistroMedico(reg);
             observacionService.saveObservacion(observacion);
         }
-        return "redirect:/miHistorial";
+        return "redirect:/miHistorial/mostrarRegistro/" + observacion.getRegistroMedico().getId();
     }
 
 }

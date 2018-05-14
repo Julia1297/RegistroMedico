@@ -132,17 +132,17 @@
                 text-align: center;
             }
         </style>
-    <title>Register</title>
+    <title>Mi salud</title>
 </head>
 <body>
 <div class="form-group ">
     <button type="submit" target="_blank" class="btn btn-primary btn-lg btn-block login-button"
-            onclick="window.location.href='/miHistorial'" style="background-color:darkturquoise">Volver mi historial</button>
+            onclick="window.location.href='/miHistorial'" style="background-color:darkturquoise">Volver a mi historial</button>
 </div>
 <div class="container">
     <div class="row main">
         <div class="main-login main-center">
-            <h4 style="text-align: center;">Registra tus datos personales</h4>
+            <h4 style="text-align: center;">Nuevo medicamento</h4>
             <form autocomplete="off" th:object="${medicamento}" method="post" th:action="@{/miHistorial/medicamento}" class="" >
 
                 <div class="form-group">
